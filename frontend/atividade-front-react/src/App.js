@@ -2,55 +2,58 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import AtividadeForm from "./components/AtividadeForm";
 import AtividadeLista from "./components/AtividadeLista";
-
-//Valores das atividades padrões já inseridas no programa
-let initialState = [
-  {
-    id: 1,
-    prioridade: "1",
-    titulo: "Título",
-    descricao: "Primeira atividade",
-  },
-  {
-    id: 2,
-    prioridade: "1",
-    titulo: "Título",
-    descricao: "Segunda atividade",
-  },
-];
+import api from "./api/atividade";
 
 //Componente "App"
 function App() {
   //usestate para auxiliar a função "AddAtividade" passando os valores em tempo real para a criação das atividades
-  const [atividades, setAtividades] = useState(initialState);
-  const [atividade, setAtividade] = useState({id: 0});
-  const [index, setIndex] = useState(0);
+  const [atividades, setAtividades] = useState([]);
+  const [atividade, setAtividade] = useState({ id: 0 });
+
+  const pegarTodasAtividades = async () => {
+    const response = await api.get("atividade");
+    return response.data;
+  };
 
   useEffect(() => {
-    atividades.length <= 0 ? setIndex(1) : 
-    setIndex(Math.max.apply(Math, atividades.map((item) => item.id)) + 1)
-  }, [atividades])
+    const getAtividades = async () => {
+      const todasAtividades = await pegarTodasAtividades();
+
+      if (todasAtividades) {
+        setAtividades(todasAtividades);
+      }
+    };
+    getAtividades();
+  }, []);
 
   //Mais comentarios na proxima atualização
-  function addAtividade(ativ) {
-    setAtividades([...atividades,
-      { ...ativ, id: index}])}
+  const addAtividade = async (ativ) => {
+    const response = await api.post('atividade', ativ);
+    console.log(response.data);
+    setAtividades([...atividades, response.data]);
+};
 
-  function cancelarAtividade(){
-    setAtividade({id: 0})
+  function cancelarAtividade() {
+    setAtividade({ id: 0 });
   }
 
-  function atualizarAtividade(ativ){
-    setAtividades(atividades.map(item => item.id === ativ.id ? ativ : item));
-    setAtividade({id: 0});
-  }
-
-  function deletarAtividade(id) {
-    const atividadesFiltradas = atividades.filter(
-      (atividade) => atividade.id !== id
+  function atualizarAtividade(ativ) {
+    setAtividades(
+      atividades.map((item) => (item.id === ativ.id ? ativ : item))
     );
-    setAtividades([...atividadesFiltradas]);
+    setAtividade({ id: 0 });
   }
+
+  const deletarAtividade = async (id) => {
+    if (await api.delete(`atividade/${id}`)) {
+      const atividadesFiltradas = atividades.filter(
+        (atividade) => atividade.id !== id
+      );
+
+      setAtividades([...atividadesFiltradas]);
+    }
+  };
+
   function pegarAtividade(id) {
     const atividade = atividades.filter((atividade) => atividade.id === id);
     setAtividade(atividade[0]);

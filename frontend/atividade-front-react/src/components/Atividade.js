@@ -5,12 +5,10 @@ export default function Atividade(props) {
   //Função para selecionar a prioridade da atividade
   function prioridadeLabel(param){
     switch(param){
-      case '1':
-        return 'Baixa'
-      case '2':
-        return 'Média'
-      case '3':
-        return 'Alta'
+      case 'Baixa':
+      case 'Normal':
+      case 'Alta':
+        return param;
       default:
         return 'Não definido'
     }
@@ -18,14 +16,14 @@ export default function Atividade(props) {
   //Função para mudar o icone e a estilização de acordo com a prioridade selecionada
   function prioridadeStyle(param, icone){
     switch(param){
-      case '1':
+      case 'Baixa':
         return icone ? 'smile' : 'success';
-      case '2':
+      case 'Normal':
         return icone ? 'meh' : 'dark';
-      case '3':
+      case 'Alta':
         return icone ? 'frown' : 'danger';
       default:
-        return 'Não D]definido'
+        return 'Não Definido'
     }
   }
 

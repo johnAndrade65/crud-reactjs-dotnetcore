@@ -30,11 +30,11 @@ namespace ProAtividade.API.Controllers
         }
 
         [HttpPost]
-        public IEnumerable<Atividade> Post(Atividade atividade)
+        public Atividade Post(Atividade atividade)
         {
             _context.Atividades.Add(atividade);
-            if(_context.SaveChanges() > 0)
-                return _context.Atividades;
+            if (_context.SaveChanges() > 0)
+                return _context.Atividades.FirstOrDefault(ati => ati.Id == atividade.Id);
             else
                 throw new Exception("Você não conseguiu adicionar uma atividade");
         }
@@ -50,14 +50,12 @@ namespace ProAtividade.API.Controllers
                 return new Atividade();
 
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public bool Delete(int id)
-        {   
+        {
             var atividade = _context.Atividades.FirstOrDefault(ativ => ativ.Id == id);
-            if(atividade == null)
-            {
+            if (atividade == null)
                 throw new Exception("Você está tentando deletar uma atividade que não existe");
-            }
 
             _context.Remove(atividade);
 
