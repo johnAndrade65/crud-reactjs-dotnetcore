@@ -1,7 +1,7 @@
 import React from "react";
 
 //Componente "Atividade" exportado para o componente "AtividadeLista"
-export default function Atividade(props) {
+export default function AtividadeItem(props) {
   //Função para selecionar a prioridade da atividade
   function prioridadeLabel(param) {
     switch (param) {
