@@ -2,8 +2,9 @@
 <p>Ainda em construção! criado como atividade de um curso de React-js + .NET-Core</p>
 <p>Deploy: Nas próximas versões...</p>
 <h5>Front-end criado com React JS e Bootstrap5 já responsivo para diversos tamanhos de telas</h5>
-<h3>Atualização Front-end: Organização de rotas:</h3>
+<h4>Atualização Front-end: Organização de rotas:</h4>
 <p>Organização das rotas atráves do React-routes.</p>
+<p>Criação dá página "clientes" e do seu filtro que é semelhante a uma barra de pesquisa.</p>
 <p>Criação de rotas como "Page not found".</p>
 <img src="./images/readme.png" alt="Screen Capture">
 <img src="./images/readme2.png" alt="Screen Capture">
