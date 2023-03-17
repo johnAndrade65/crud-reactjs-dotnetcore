@@ -1,20 +1,27 @@
 import React from "react";
 //Importação do compopnente "Atividade"
 import AtividadeItem from "./AtividadeItem";
+import { AtividadeListaProps } from './../../model/atividadesProps';
 
 //Componente "AtividadeLista"
-export default function AtividadeLista(props) {
+const AtividadeLista: React.FC<AtividadeListaProps> = ({
+  atividades,
+  handleConfirmModal,
+  pegarAtividade
+}: AtividadeListaProps ) => {
   //O componente "AtividadeLista" utiliza elementos próprios e elementos do componente "Atividade"
   return (
 <div className="mt-3">
-      {props.atividades.map((ativ) => (
+      {atividades.map((ativ) => (
         <AtividadeItem
           key={ativ.id}
           ativ={ativ}
-          pegarAtividade={props.pegarAtividade}
-          handleConfirmModal={props.handleConfirmModal}
+          pegarAtividade={pegarAtividade}
+          handleConfirmModal={handleConfirmModal}
         />
       ))}
     </div> 
   );
 }
+
+export default  AtividadeLista;

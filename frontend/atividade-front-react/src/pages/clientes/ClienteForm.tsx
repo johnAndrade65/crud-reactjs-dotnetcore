@@ -1,9 +1,9 @@
 import React from 'react';
-import TitlePage from '../../components/TitlePage';
+import TitlePage from '../../components/TitlePage.tsx';
 import { Button } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 
-export default function ClienteForm() {
+const ClienteForm = () => {
     let navigate = useNavigate();
     let { id } = useParams();
 
@@ -22,3 +22,5 @@ export default function ClienteForm() {
         </>
     )
 }
+
+export default ClienteForm;
